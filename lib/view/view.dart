@@ -17,6 +17,9 @@ class _NewInspectionFormViewState extends State<NewInspectionFormView> {
   void initState() {
     super.initState();
     widget.controller.fetchTechnicians();
+    widget.controller.fetchWorkshops();
+
+    
   }
 
   @override
@@ -32,6 +35,26 @@ class _NewInspectionFormViewState extends State<NewInspectionFormView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
+              
+                DropdownButtonFormField<int>(
+                value: widget.data.selectedWorkshopId,
+                onChanged: (newValue) {
+                  setState(() {
+                    widget.data.selectedWorkshopId = newValue;
+                  });
+                },
+                items: widget.data.workshops.map((workshop) {
+                  return DropdownMenuItem<int>(
+                    value: workshop.id,
+                     child: Text('${workshop.workshop}'),
+                    // child: Text('${technician.firstName} ${technician.lastName}'),
+                  );
+                }).toList(),
+                decoration: InputDecoration(labelText: 'workshop'),
+              ),
+        
+              SizedBox(height: 13.0),
+              
               // Dropdown para técnicos
               DropdownButtonFormField<int>(
                 value: widget.data.selectedTechnicianId,

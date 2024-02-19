@@ -16,6 +16,23 @@ class Technician {
   }
 }
 
+class Workshop {
+  final int id;
+  final String workshop;
+  final DateTime? modifyDate;
+  final DateTime registerDate;
+
+  Workshop({required this.id, required this.workshop, this.modifyDate, required this.registerDate});
+
+  factory Workshop.fromJson(Map<String, dynamic> json) {
+    return Workshop(
+      id: json['id'],
+      workshop: json['workshop'],
+      modifyDate: json['modifyDate'] != null ? DateTime.parse(json['modifyDate']) : null,
+      registerDate: DateTime.parse(json['registerDate']),
+    );
+  }
+}
 
 class NewInspectionFormData {
   String? selectedWorkshop;
@@ -26,7 +43,8 @@ class NewInspectionFormData {
   bool isChecked2 = false;
   TextEditingController descriptionController = TextEditingController();
 
-
-  List<Technician> technicians = []; // se extrae informacion de los datos de la clase technician
+  List<Technician> technicians = []; // se extrae informacion de los datos de la clase Technician
+  List<Workshop> workshops = []; // se extrae informacion de los datos de la clase Workshop
   int? selectedTechnicianId;
+  int? selectedWorkshopId; // ID del taller seleccionado
 }
