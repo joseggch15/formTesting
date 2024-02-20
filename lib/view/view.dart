@@ -18,8 +18,7 @@ class _NewInspectionFormViewState extends State<NewInspectionFormView> {
     super.initState();
     widget.controller.fetchTechnicians();
     widget.controller.fetchWorkshops();
-
-    
+    widget.controller.fetchQuestions();
   }
 
   @override
@@ -35,8 +34,7 @@ class _NewInspectionFormViewState extends State<NewInspectionFormView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              
-                DropdownButtonFormField<int>(
+              DropdownButtonFormField<int>(
                 value: widget.data.selectedWorkshopId,
                 onChanged: (newValue) {
                   setState(() {
@@ -46,15 +44,15 @@ class _NewInspectionFormViewState extends State<NewInspectionFormView> {
                 items: widget.data.workshops.map((workshop) {
                   return DropdownMenuItem<int>(
                     value: workshop.id,
-                     child: Text('${workshop.workshop}'),
+                    child: Text('${workshop.workshop}'),
                     // child: Text('${technician.firstName} ${technician.lastName}'),
                   );
                 }).toList(),
                 decoration: InputDecoration(labelText: 'workshop'),
               ),
-        
+
               SizedBox(height: 13.0),
-              
+
               // Dropdown para técnicos
               DropdownButtonFormField<int>(
                 value: widget.data.selectedTechnicianId,
@@ -66,11 +64,87 @@ class _NewInspectionFormViewState extends State<NewInspectionFormView> {
                 items: widget.data.technicians.map((technician) {
                   return DropdownMenuItem<int>(
                     value: technician.id,
-                    child: Text('${technician.firstName} ${technician.lastName}'),
+                    child:
+                        Text('${technician.firstName} ${technician.lastName}'),
                   );
                 }).toList(),
                 decoration: InputDecoration(labelText: 'Technician'),
               ),
+
+              // Dropdown para questions
+              // DropdownButtonFormField<int>(
+              //   value: widget.data.selectedQuestionId,
+              //   onChanged: (newValue) {
+              //     setState(() {
+              //       widget.data.selectedQuestionId = newValue;
+              //     });
+              //   },
+              //   items: widget.data.questions.map((question) {
+              //     return DropdownMenuItem<int>(
+              //       value: question.id,
+              //       child: Container(
+              //         width:
+              //             double.infinity, // Ajustar el ancho al máximo posible
+              //         child: Text(
+              //           '${question.question}',
+              //           softWrap: true,
+              //           overflow: TextOverflow.ellipsis,
+              //         ),
+              //       ),
+              //     );
+              //   }).toList(),
+              //   decoration: InputDecoration(labelText: 'Questions'),
+              // ),
+
+              // DropdownButtonFormField<int>(
+              //   value: widget.data.selectedQuestionId,
+              //   onChanged: (newValue) {
+              //     setState(() {
+              //       widget.data.selectedQuestionId = newValue;
+              //     });
+              //   },
+              //   items: widget.data.questions
+              //       .map<DropdownMenuItem<int>>((Question question) {
+              //     return DropdownMenuItem<int>(
+              //       value: question.id,
+              //       child: Text(question.question),
+              //     );
+              //   }).toList(),
+              // ),
+
+              //  Dropdown para questions
+              DropdownButtonFormField<int>(
+                value: widget.data.selectedQuestionId,
+                onChanged: (newValue) {
+                  setState(() {
+                    widget.data.selectedQuestionId = newValue;
+                  });
+                },
+                items: widget.data.questions.map((question) {
+                  return DropdownMenuItem<int>(
+                    value: question.id,
+                    child: Text('${question.question}'),
+                  );
+                }).toList(),
+                decoration: InputDecoration(labelText: 'Questions'),
+              ),
+
+              // DropdownButtonFormField<int>(
+              //   value: widget.data.selectedQuestionId,
+              //   onChanged: (newValue) {
+              //     setState(() {
+              //       widget.data.selectedQuestionId = newValue;
+              //     });
+              //   },
+              //   items: widget.data.questions.map((question) {
+              //     return DropdownMenuItem<int>(
+              //       value: question.id,
+              //       child: Text(question.questionText),
+              //     );
+              //   }).toList(),
+              //   decoration: InputDecoration(labelText: 'Question'),
+              // ),
+
               // ...otros widgets como 'Answer', etc.
 
               // Botón de envío
