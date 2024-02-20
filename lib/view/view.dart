@@ -19,6 +19,8 @@ class _NewInspectionFormViewState extends State<NewInspectionFormView> {
     widget.controller.fetchTechnicians();
     widget.controller.fetchWorkshops();
     widget.controller.fetchQuestions();
+    widget.controller.fetchAnswers();
+    widget.controller.fetchDeviations();
   }
 
   @override
@@ -128,6 +130,60 @@ class _NewInspectionFormViewState extends State<NewInspectionFormView> {
                 }).toList(),
                 decoration: InputDecoration(labelText: 'Questions'),
               ),
+
+              //  Dropdown para answer
+              DropdownButtonFormField<int>(
+                value: widget.data.selectedAnswerId,
+                onChanged: (newValue) {
+                  setState(() {
+                    widget.data.selectedAnswerId = newValue;
+                  });
+                },
+                items: widget.data.answers.map((answer) {
+                  return DropdownMenuItem<int>(
+                    value: answer.id,
+                    child: Text(answer
+                        .answer), // Suponiendo que 'answerText' es la propiedad que contiene el texto de la respuesta
+                  );
+                }).toList(),
+                decoration: InputDecoration(labelText: 'Answer'),
+              ),
+
+              DropdownButtonFormField<int>(
+                value: widget.data.selectedDeviationId,
+                onChanged: (newValue) {
+                  setState(() {
+                    widget.data.selectedDeviationId = newValue;
+                  });
+                },
+                items: widget.data.deviations.map((deviation) {
+                  return DropdownMenuItem<int>(
+                    value: deviation.id,
+                    child: Text(deviation
+                        .deviationText), // Asegúrate de que 'deviationText' es la propiedad que contiene el texto de la desviación
+                  );
+                }).toList(),
+                decoration: InputDecoration(labelText: 'Deviation'),
+              ),
+
+// Nuevo TextFormField para la descripción corta
+              // TextFormField(
+              //   initialValue: widget.data.shortDescription,
+              //   onChanged: (newValue) {
+              //     setState(() {
+              //       widget.data.shortDescription = newValue;
+              //     });
+              //   },
+              //   maxLines: null,
+              //   keyboardType: TextInputType.multiline,
+              //   decoration: InputDecoration(
+              //     labelText: 'Short Description of what is going on',
+              //     alignLabelWithHint: true,
+              //     border: OutlineInputBorder(),
+              //   ),
+              // ),
+
+              // SizedBox(height: 13.0),
 
               // DropdownButtonFormField<int>(
               //   value: widget.data.selectedQuestionId,

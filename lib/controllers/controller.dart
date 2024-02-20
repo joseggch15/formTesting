@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 String authToken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJhdXRob3JpdHkiOiJTdXBlcnVzZXIiLCJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzA4NDY0ODM3LCJleHAiOjE3MDg0NjYyNzd9.ruz5UOu3Hcc2ey2u0qBr4w6G90V_lyj06inDmaZIYk2UwLKY_Ju1RgdR8CzN6THH';
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJhdXRob3JpdHkiOiJTdXBlcnVzZXIiLCJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzA4NDY3OTQxLCJleHAiOjE3MDg0NjkzODF9.2JN4FtkCRD0jCMH7HjvvGUWwaad_NTygsmH8mY2-ZbPgCRuN6LhiqaWLaOtWoIEd';
 
 class NewInspectionFormController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -78,6 +78,41 @@ class NewInspectionFormController {
           questionsJson.map((json) => Question.fromJson(json)).toList();
     } else {
       // Manejo de errores en technician
+    }
+  }
+
+  Future<void> fetchAnswers() async {
+    final response = await http.get(
+      Uri.parse('http://3.129.92.139:8080/api/answer/all'),
+      headers: {
+        'Authorization': 'Bearer $authToken',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      List<dynamic> answersJson = json.decode(response.body);
+      data.answers = // Corrección aquí
+          answersJson.map((json) => Answer.fromJson(json)).toList();
+    } else {
+      // Manejo de errores en answers
+      // Puedes agregar un manejo de errores más específico aquí
+    }
+  }
+
+  Future<void> fetchDeviations() async {
+    final response = await http.get(
+      Uri.parse('http://3.129.92.139:8080/api/deviation/all'),
+      headers: {
+        'Authorization': 'Bearer $authToken',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      List<dynamic> deviationsJson = json.decode(response.body);
+      data.deviations =
+          deviationsJson.map((json) => Deviation.fromJson(json)).toList();
+    } else {
+      // Manejo de errores en deviations
     }
   }
 

@@ -55,19 +55,37 @@ class Question {
   }
 }
 
-// class Question {
-//   final int id;
-//   final String questionText;
+class Answer {
+  final int id;
+  final String answer;
 
-//   Question({required this.id, required this.questionText});
+  Answer({required this.id, required this.answer});
 
-//   factory Question.fromJson(Map<String, dynamic> json) {
-//     return Question(
-//       id: json['id'],
-//       questionText: json['questionText'],
-//     );
-//   }
-// }
+  factory Answer.fromJson(Map<String, dynamic> json) {
+    return Answer(
+      id: json['id'],
+      answer: json['answer'],
+    );
+  }
+}
+
+
+
+
+class Deviation {
+  final int id;
+  final String deviationText;  // Asumiendo que tienes un campo de texto para la desviación
+
+  Deviation({required this.id, required this.deviationText});
+
+  factory Deviation.fromJson(Map<String, dynamic> json) {
+    return Deviation(
+      id: json['id'],
+      deviationText: json['deviation'],  // Asegúrate de que el nombre de la clave coincida con tu API
+    );
+  }
+}
+
 
 class NewInspectionFormData {
   String? selectedWorkshop;
@@ -88,4 +106,12 @@ class NewInspectionFormData {
   int? selectedWorkshopId; // ID del taller seleccionado
   List<Question> questions = [];
   int? selectedQuestionId; // ID of the selected question
+
+
+   List<Answer> answers = [];
+  int? selectedAnswerId; // ID of the selected question
+
+
+  List<Deviation> deviations = [];
+  int? selectedDeviationId; // ID of the selected deviation
 }
